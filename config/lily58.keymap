@@ -1,0 +1,158 @@
+/*
+ * Copyright (c) 2020 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/modifiers.h>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/ext_power.h>
+#include <dt-bindings/zmk/pointing.h>
+
+/ {
+    behaviors {
+        /* Tab: Shift+Ctrl -> Shift+Ctrl+Tab ; Ctrl -> Shift+Tab ; Shift -> Ctrl+Tab ; else Tab  (left mods only) */
+        tab_on_shift: tab_on_shift {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp LC(TAB)>, <&kp TAB>;
+            mods = <(MOD_LSFT)>;
+        };
+        tab_swap: tab_swap {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&tab_on_shift>, <&kp LS(TAB)>;
+            mods = <(MOD_LCTRL)>;
+        };
+        tab_both: tab_both {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp LS(LC(TAB))>, <&tab_swap>;
+            mods = <(MOD_LSFT | MOD_LCTRL)>;
+        };
+        /* Esc: Shift+Ctrl -> Shift+Ctrl+Esc ; Ctrl -> Shift+Esc ; Shift -> Ctrl+Esc ; else Esc  (left mods only) */
+        esc_on_shift: esc_on_shift {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp LC(ESC)>, <&kp ESC>;
+            mods = <(MOD_LSFT)>;
+        };
+        esc_swap: esc_swap {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&esc_on_shift>, <&kp LS(ESC)>;
+            mods = <(MOD_LCTRL)>;
+        };
+        esc_both: esc_both {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp LS(LC(ESC))>, <&esc_swap>;
+            mods = <(MOD_LSFT | MOD_LCTRL)>;
+        };
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+
+//  =============================  DEFAULT LAYER  =============================
+//
+//  Silakka54 physical layout (54 keys = 12×4 rows + 6 thumbs):
+//
+        default_layer {
+            name = "Base";
+// |  ESC  |  1  |  2  |  3   |  4   |  5   |                   |  6   |  7    |  8    |  9   |   0   | BSPC  |
+// |  TAB  |  Q  |  W  |  E   |  R   |  T   |                   |  Y   |  U    |  I    |  O   |   P   | DEL   |
+// | CTRL  |  A  |  S  |  D   |  F   |  G   |                   |  H   |  J    |  K    |  L   |   ;   |t=ENT,h=RCTRL|
+// | SHIFT |  Z  |  X  |  C   |  V   |  B   |                   |  N   |  M    |  ,    |  .   |   /   | SHIFT |
+//                     | ALT  | t=Spc,h=GUI | LOWER|         | RAISE| t=Spc,h=GUI | ALT  |
+            bindings = <
+&esc_both &kp N1 &kp N2 &kp N3 &kp N4 &kp N5                       &kp N6 &kp N7 &kp N8 &kp N9 &kp N0 &kp BSPC
+&tab_swap &kp Q  &kp W  &kp E  &kp R  &kp T                        &kp Y  &kp U  &kp I  &kp O  &kp P  &kp DEL
+&kp LCTRL    &kp A  &kp S  &kp D  &kp F  &kp G                        &kp H  &kp J  &kp K  &kp L  &kp SEMI &mt RCTRL RET
+&kp LSHFT    &kp Z  &kp X  &kp C  &kp V  &kp B  &trans  &trans        &kp N  &kp M  &kp COMMA &kp DOT &kp FSLH &kp RSHFT
+                          &kp LALT &mt LGUI SPACE &mo 1  &trans  &trans  &mo 2  &mt RGUI SPACE &kp RALT
+            >;
+
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+        };
+
+//  =============================  LOWER LAYER  =============================
+//
+//  Left = D-PAD + BT + symbols, Right = NUMPAD + scroll
+//
+        lower_layer {
+            name = "Lower";
+// D-PAD                                      NUMPAD
+// | BTCLR | BT1 | BT2 | BT3  | BT4  | BT5 |                   |  `   |      | Equal  | Slash  |  Star  |    |
+// |       |     | PGDN| UP   | PGUP |  {  |                   |  }   |  7   |  8    |  9    | MINUS  |     |
+// |       |     |LEFT | DOWN |RIGHT |  '  |                   |  -_   |  4   |  5    |  6    | PLUS   |       |
+// |       |     |HOME |      | END  |  \  |                   |  =+   |  1   |  2    |  3    | ENTER  |       |
+//                     |      |      |      |                  |      |  0   |   .    |
+            bindings = <
+&bt BT_CLR &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4                           &kp GRAVE &trans &kp KP_EQUAL &kp KP_SLASH &kp KP_ASTERISK &trans
+&trans     &trans       &kp PG_DN    &kp UP       &kp PG_UP     &kp LBRC                              &kp RBRC &kp KP_N7 &kp KP_N8 &kp KP_N9 &kp KP_MINUS &trans
+&trans     &trans       &kp LEFT     &kp DOWN     &kp RIGHT     &kp SQT                               &kp MINUS  &kp KP_N4 &kp KP_N5 &kp KP_N6 &kp KP_PLUS  &trans
+&trans     &trans       &kp HOME     &trans       &kp END       &kp BSLH  &trans  &trans               &kp EQUAL &kp KP_N1 &kp KP_N2 &kp KP_N3 &kp KP_ENTER &trans
+                                                  &trans        &trans    &mo 1   &trans  &trans         &mo 2    &kp KP_N0 &kp KP_DOT
+            >;
+
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+        };
+
+//  =============================  RAISE LAYER  =============================
+//
+//  Left = FUNC (F1–F12), Right = MOUSE
+//
+        raise_layer {
+            name = "Raise";
+//                FUNC                                            MOUSE
+// |       |     |     |      |      |      |                   |      |      |MMIDDLE|       |       |        |
+// |       |  F1 |  F2 |  F3  |  F4  |  PSCN    |                   | MB3  | MCL  |  MUP  |  MCR  |MSCRUP  |        |
+// |       |  F5 |  F6 |  F7  |  F8  |      |                   | MB4  |MLEFT | MDOWN |MRIGHT |MSCRDN  |        |
+// |       |  F9 | F10 | F11  | F12  |      |                   | MB5  |  MSL    |       |  MSR     |        |        |
+//                     | MSPD-| MSPD+|      |                   |      |      |        |
+            bindings = <
+&trans &trans &trans &trans  &trans  &trans                                              &trans  &trans &mkp MCLK &trans &trans &trans
+&trans &kp F1  &kp F2 &kp F3 &kp F4  &kp PSCRN                                             &mkp MB3  &mkp LCLK &mmv MOVE_UP &mkp RCLK  &msc SCRL_UP    &trans
+&trans &kp F5  &kp F6 &kp F7 &kp F8  &trans                                              &mkp MB4  &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_RIGHT &msc SCRL_DOWN &trans
+&trans &kp F9  &kp F10 &kp F11 &kp F12 &trans &trans  &trans                               &mkp MB5  &msc SCRL_LEFT &trans &msc SCRL_RIGHT   &trans    &trans
+                          &trans &trans &trans &trans  &trans  &trans                       &trans    &trans
+            >;
+
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+        };
+
+//  =============================  ADJUST LAYER  =============================
+//
+//  Activated when LOWER + RAISE layer keys are held together.
+//  (ZMK maps 'both held' to a single layer; press order is not distinguished.)
+//
+        adjust_layer {
+            name = "Adjust";
+// |       |     |     |      |      |      |                   |      |      |       |       |       |        |
+// |       |     |     |      |      |      |                   |      |      |       |       |       |        |
+// |       |     |     |      |      |      |                   |      |      |       |       |       |        |
+// |       |     |     |      |      |      |                   |      |      |       |       |       |        |
+//                     |      |      |      |                   |      |      |       |
+            bindings = <
+&trans &trans &trans &trans &trans &trans                                            &trans &trans &trans &trans &trans &trans
+&trans &trans &trans &trans &trans &trans                                            &trans &trans &trans &trans &trans &trans
+&trans &trans &trans &trans &trans &trans                                            &trans &trans &trans &trans &trans &trans
+&trans &trans &trans &trans &trans &trans &trans &trans                             &trans &trans &trans &trans &trans &trans
+                                  &trans &trans &trans &trans &trans                 &trans &trans &trans
+            >;
+
+            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
+        };
+    };
+
+    conditional_layers {
+        compatible = "zmk,conditional-layers";
+        adjust_on_both {
+            if-layers = <1 2>;
+            then-layer = <3>;
+        };
+    };
+};

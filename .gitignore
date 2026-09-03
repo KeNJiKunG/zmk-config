@@ -1,0 +1,14 @@
+
+.zmk/
+
+# Extracted/reference zips and dirs (not part of the keyboard config)
+*.zip
+/Lily58-master/
+/silakka54-main/
+
+# Editor / tooling artifacts
+.DS_Store
+.vscode/
+.opencode/
+.memsearch/
+
