@@ -52,14 +52,6 @@
             bindings = <&kp LS(LC(ESC))>, <&esc_swap>;
             mods = <(MOD_LSFT | MOD_LCTL)>;
         };
-        /* BT profile: tap = select profile, hold 3s = clear that profile */
-        bt_sel_clr: bt_sel_clr {
-            compatible = "zmk,behavior-hold-tap";
-            #binding-cells = <1>;
-            flavor = "tap-preferred";
-            tapping-term-ms = <3000>;
-            bindings = <&bt BT_CLR_CMD &bt BT_SEL_CMD>;
-        };
         /* Left Shift: single tap = Shift, double tap = Caps Lock */
         td_caps: td_caps {
             compatible = "zmk,behavior-tap-dance";
@@ -105,7 +97,7 @@
 // |       |     |HOME |      | END  |  \  |                   |  =+   |  1   |  2    |  3    | ENTER  |       |
 //                     |      |      |      |                  |      |  0   |   .    |
             bindings = <
-&out OUT_TOG &bt_sel_clr 0 &bt_sel_clr 1 &bt_sel_clr 2 &bt_sel_clr 3 &bt_sel_clr 4                   &kp GRAVE &trans &kp KP_EQUAL &kp KP_SLASH &kp KP_ASTERISK &trans
+&out OUT_TOG &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4                   &kp GRAVE &trans &kp KP_EQUAL &kp KP_SLASH &kp KP_ASTERISK &trans
 &trans     &trans       &kp PG_DN    &kp UP       &kp PG_UP     &kp LBRC                              &kp RBRC &kp KP_N7 &kp KP_N8 &kp KP_N9 &kp KP_MINUS &trans
 &trans     &trans       &kp LEFT     &kp DOWN     &kp RIGHT     &kp SQT                               &kp MINUS  &kp KP_N4 &kp KP_N5 &kp KP_N6 &kp KP_PLUS  &trans
 &trans     &trans       &kp HOME     &trans       &kp END       &kp BSLH  &trans  &trans               &kp EQUAL &kp KP_N1 &kp KP_N2 &kp KP_N3 &kp KP_ENTER &trans
