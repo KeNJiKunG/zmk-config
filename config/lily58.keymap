@@ -24,13 +24,13 @@
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
             bindings = <&tab_on_shift>, <&kp LS(TAB)>;
-            mods = <(MOD_LCTRL)>;
+            mods = <(MOD_LCTL)>;
         };
         tab_both: tab_both {
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
             bindings = <&kp LS(LC(TAB))>, <&tab_swap>;
-            mods = <(MOD_LSFT | MOD_LCTRL)>;
+            mods = <(MOD_LSFT | MOD_LCTL)>;
         };
         /* Esc: Shift+Ctrl -> Shift+Ctrl+Esc ; Ctrl -> Shift+Esc ; Shift -> Ctrl+Esc ; else Esc  (left mods only) */
         esc_on_shift: esc_on_shift {
@@ -43,13 +43,13 @@
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
             bindings = <&esc_on_shift>, <&kp LS(ESC)>;
-            mods = <(MOD_LCTRL)>;
+            mods = <(MOD_LCTL)>;
         };
         esc_both: esc_both {
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
             bindings = <&kp LS(LC(ESC))>, <&esc_swap>;
-            mods = <(MOD_LSFT | MOD_LCTRL)>;
+            mods = <(MOD_LSFT | MOD_LCTL)>;
         };
     };
 
