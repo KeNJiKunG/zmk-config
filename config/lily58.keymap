@@ -58,7 +58,7 @@
             #binding-cells = <1>;
             flavor = "tap-preferred";
             tapping-term-ms = <3000>;
-            bindings = <&bt BT_CLR_CMD>, <&bt BT_SEL_CMD>;
+            bindings = <&bt BT_CLR_CMD &bt BT_SEL_CMD>;
         };
         /* Left Shift: single tap = Shift, double tap = Caps Lock */
         td_caps: td_caps {
