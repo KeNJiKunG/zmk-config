@@ -83,13 +83,13 @@
         default_layer {
             label = "Base";
 // |  ESC  |  1  |  2  |  3   |  4   |  5   |                   |  6   |  7    |  8    |  9   |   0   | BSPC  |
-// |  TAB  |  Q  |  W  |  E   |  R   |  T   |                   |  Y   |  U    |  I    |  O   |   P   | DEL   |
+// |  TAB  |  Q  |  W  |  E   |  R   |  T   |                   |  Y   |  U    |  I    |  O   |   P   | [   |
 // | CTRL  |  A  |  S  |  D   |  F   |  G   |                   |  H   |  J    |  K    |  L   |   ;   |t=ENT,h=RCTRL|
 // | SHIFT |  Z  |  X  |  C   |  V   |  B   |                   |  N   |  M    |  ,    |  .   |   /   | SHIFT |
 //                     | ALT  | t=Spc,h=GUI | LOWER|         | RAISE| t=Spc,h=GUI | ALT  |
             bindings = <
 &esc_swap &kp N1 &kp N2 &kp N3 &kp N4 &kp N5                       &kp N6 &kp N7 &kp N8 &kp N9 &kp N0 &kp BSPC
-&tab_swap &kp Q  &kp W  &kp E  &kp R  &kp T                        &kp Y  &kp U  &kp I  &kp O  &kp P  &kp DEL
+&tab_swap &kp Q  &kp W  &kp E  &kp R  &kp T                        &kp Y  &kp U  &kp I  &kp O  &kp P  &kp LBKT
 &kp LCTRL    &kp A  &kp S  &kp D  &kp F  &kp G                        &kp H  &kp J  &kp K  &kp L  &kp SEMI &mt RCTRL RET
 &td_caps    &kp Z  &kp X  &kp C  &kp V  &kp B  &trans  &trans        &kp N  &kp M  &kp COMMA &kp DOT &kp FSLH &kp RSHFT
                           &kp LALT &mt LGUI SPACE &lt 1 SPACE  &trans  &trans  &lt 2 SPACE  &mt RGUI SPACE &kp RALT
@@ -128,16 +128,16 @@
         raise_layer {
             label = "Raise";
 //                FUNC                                            MOUSE
-// |       |     |     |      |      |      |                   |      |      |MMIDDLE|       |       |        |
-// |       |  F1 |  F2 |  F3  |  F4  |  PSCN    |                   | MB3  | MCL  |  MUP  |  MCR  |MSCRUP  |        |
-// |       |  F5 |  F6 |  F7  |  F8  |      |                   | MB4  |MLEFT | MDOWN |MRIGHT |MSCRDN  |        |
-// | STDUI |  F9 | F10 | F11  | F12  |      |                   | MB5  |  MSL    |       |  MSR     |        |        |
+// |       |     |     |      |      |      |                   |      |  MSR |MMIDDLE|  MSL  |   -_    |    =+    |
+// |       |  F1 |  F2 |  F3  |  F4  |  PSCN    |                   | MB3  | MCL  |  MUP  | MCR   | [{] |   ]}     |
+// |       |  F5 |  F6 |  F7  |  F8  |      |                   | MB4  |MLEFT | MDOWN |MRIGHT |  |   '"   |
+// | STDUI |  F9 | F10 | F11  | F12  |      |                   | MB5  |  MSCRUP |       |  MSCRDN  |        |        |
 //                     | MSPD-| MSPD+|      |                   |      |      |        |
             bindings = <
-&trans &trans &trans &trans  &trans  &trans                                              &trans  &trans &mkp MCLK &trans &trans &trans
-&trans &kp F1  &kp F2 &kp F3 &kp F4  &kp PSCRN                                             &mkp MB3  &mkp LCLK &mmv MOVE_UP &mkp RCLK  &msc SCRL_DOWN  &trans
-&trans &kp F5  &kp F6 &kp F7 &kp F8  &trans                                              &mkp MB4  &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_RIGHT &msc SCRL_UP &trans
-&studio_unlock  &kp F9  &kp F10 &kp F11 &kp F12 &trans &trans  &trans                               &mkp MB5  &msc SCRL_LEFT &trans &msc SCRL_RIGHT   &trans    &trans
+&trans &trans &trans &trans  &trans  &trans                                              &trans  &msc SCRL_RIGHT &mkp MCLK &msc SCRL_LEFT &kp MINUS &kp EQUAL
+&trans &kp F1  &kp F2 &kp F3 &kp F4  &kp PSCRN                                             &mkp MB3  &mkp LCLK &mmv MOVE_UP &mkp RCLK  &kp LBKT  &kp RBKT
+&trans &kp F5  &kp F6 &kp F7 &kp F8  &trans                                              &mkp MB4  &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_RIGHT &trans &kp SQT
+&studio_unlock  &kp F9  &kp F10 &kp F11 &kp F12 &trans &trans  &trans                               &mkp MB5  &msc SCRL_DOWN &trans &msc SCRL_UP   &trans    &trans
                           &trans &trans &trans &trans  &trans  &trans                       &trans    &trans
             >;
 
