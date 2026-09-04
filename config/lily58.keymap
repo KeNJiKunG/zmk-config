@@ -14,11 +14,11 @@
 
 / {
     behaviors {
-        /* Tab: Shift+Ctrl -> Shift+Ctrl+Tab ; Ctrl -> Shift+Tab ; Shift -> Ctrl+Tab ; else Tab  (left mods only) */
+        /* Tab: Ctrl -> Shift+Tab ; Shift -> Ctrl+Tab ; else Tab  (left mods only) */
         tab_on_shift: tab_on_shift {
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
-            bindings = <&kp LC(TAB)>, <&kp TAB>;
+            bindings = <&kp TAB>, <&kp LC(TAB)>;
             mods = <(MOD_LSFT)>;
         };
         tab_swap: tab_swap {
@@ -27,17 +27,11 @@
             bindings = <&tab_on_shift>, <&kp LS(TAB)>;
             mods = <(MOD_LCTL)>;
         };
-        tab_both: tab_both {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&kp LS(LC(TAB))>, <&tab_swap>;
-            mods = <(MOD_LSFT | MOD_LCTL)>;
-        };
-        /* Esc: Shift+Ctrl -> Shift+Ctrl+Esc ; Ctrl -> Shift+Esc ; Shift -> Ctrl+Esc ; else Esc  (left mods only) */
+        /* Esc: Ctrl -> Shift+Esc ; Shift -> Ctrl+Esc ; else Esc  (left mods only) */
         esc_on_shift: esc_on_shift {
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
-            bindings = <&kp LC(ESC)>, <&kp ESC>;
+            bindings = <&kp ESC>, <&kp LC(ESC)>;
             mods = <(MOD_LSFT)>;
         };
         esc_swap: esc_swap {
@@ -45,12 +39,6 @@
             #binding-cells = <0>;
             bindings = <&esc_on_shift>, <&kp LS(ESC)>;
             mods = <(MOD_LCTL)>;
-        };
-        esc_both: esc_both {
-            compatible = "zmk,behavior-mod-morph";
-            #binding-cells = <0>;
-            bindings = <&kp LS(LC(ESC))>, <&esc_swap>;
-            mods = <(MOD_LSFT | MOD_LCTL)>;
         };
         /* BT profile: hold 3s = clear all bonds, tap = select profile n
          * The macro wraps &bt BT_SEL, forwarding macro param1 → param2 (profile index).
@@ -92,7 +80,7 @@
 // | SHIFT |  Z  |  X  |  C   |  V   |  B   |                   |  N   |  M    |  ,    |  .   |   /   | SHIFT |
 //                     | ALT  | t=Spc,h=GUI | LOWER|         | RAISE| t=Spc,h=GUI | ALT  |
             bindings = <
-&esc_both &kp N1 &kp N2 &kp N3 &kp N4 &kp N5                       &kp N6 &kp N7 &kp N8 &kp N9 &kp N0 &kp BSPC
+&esc_swap &kp N1 &kp N2 &kp N3 &kp N4 &kp N5                       &kp N6 &kp N7 &kp N8 &kp N9 &kp N0 &kp BSPC
 &tab_swap &kp Q  &kp W  &kp E  &kp R  &kp T                        &kp Y  &kp U  &kp I  &kp O  &kp P  &kp DEL
 &kp LCTRL    &kp A  &kp S  &kp D  &kp F  &kp G                        &kp H  &kp J  &kp K  &kp L  &kp SEMI &mt RCTRL RET
 &td_caps    &kp Z  &kp X  &kp C  &kp V  &kp B  &trans  &trans        &kp N  &kp M  &kp COMMA &kp DOT &kp FSLH &kp RSHFT
@@ -112,14 +100,14 @@
 // | BTCLR | BT1 | BT2 | BT3  | BT4  | BT5 |                   |  `   |      | Equal  | Slash  |  Star  |    |
 // |       |     | PGDN| UP   | PGUP |  {  |                   |  }   |  7   |  8    |  9    | MINUS  |     |
 // |       |     |LEFT | DOWN |RIGHT |  '  |                   |  -_   |  4   |  5    |  6    | PLUS   |       |
-// |       |     |HOME |      | END  |  \  |                   |  =+   |  1   |  2    |  3    | ENTER  |       |
+// | STUDI |     |HOME |      | END  |  \  |                   |  =+   |  1   |  2    |  3    | ENTER  |       |
 //                     |      |      |      |                  |      |  0   |   .    |
             bindings = <
 &out OUT_TOG &bt_ht 0 0 &bt_ht 0 1 &bt_ht 0 2 &bt_ht 0 3 &bt_ht 0 4                   &kp GRAVE &trans &kp KP_EQUAL &kp KP_SLASH &kp KP_ASTERISK &trans
 &trans     &trans       &kp PG_DN    &kp UP       &kp PG_UP     &kp LBKT                              &kp RBKT &kp KP_N7 &kp KP_N8 &kp KP_N9 &kp KP_MINUS &trans
 &trans     &trans       &kp LEFT     &kp DOWN     &kp RIGHT     &kp SQT                               &kp MINUS  &kp KP_N4 &kp KP_N5 &kp KP_N6 &kp KP_PLUS  &trans
-&trans     &trans       &kp HOME     &trans       &kp END       &kp BSLH  &trans  &trans               &kp EQUAL &kp KP_N1 &kp KP_N2 &kp KP_N3 &kp KP_ENTER &trans
-                                                  &trans        &trans    &mo 1   &trans  &trans         &mo 2    &kp KP_N0 &kp KP_DOT
+&studio_unlock     &trans       &kp HOME     &trans       &kp END       &kp BSLH  &trans  &trans               &kp EQUAL &kp KP_N1 &kp KP_N2 &kp KP_N3 &kp KP_ENTER &trans
+                                                  &trans        &trans    &trans0   &trans  &trans         &trans    &kp KP_N0 &kp KP_DOT
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
