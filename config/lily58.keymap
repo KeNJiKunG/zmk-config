@@ -16,6 +16,11 @@
 #include <dt-bindings/zmk/pointing.h>
 
 / {
+    /* Override mouse move acceleration: 2s to reach max speed */
+    mmv {
+        time-to-max-speed-ms = <2000>;
+    };
+
     behaviors {
         /* Tab: Ctrl -> Shift+Tab ; Shift -> Ctrl+Tab ; else Tab  (left mods only) */
         tab_on_shift: tab_on_shift {
