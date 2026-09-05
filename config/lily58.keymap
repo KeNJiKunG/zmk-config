@@ -14,6 +14,7 @@
 #include <dt-bindings/zmk/ext_power.h>
 #include <dt-bindings/zmk/outputs.h>
 #include <dt-bindings/zmk/pointing.h>
+#include <behaviors/mouse_key_toggle.dtsi>
 
 / {
     /* Override mouse move acceleration: 2s to reach max speed */
@@ -98,20 +99,20 @@
             tapping-term-ms = <200>;
             bindings = <&kp LSHFT>, <&kp CAPS>;
         };
-        /* Mouse hold-tap: quick tap = click, hold >2s = drag (held while key held) */
+        /* Mouse hold-tap: quick tap = click, hold >2s = toggle drag lock */
         lclk_ht: lclk_ht {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "balanced";
             tapping-term-ms = <2000>;
-            bindings = <&mkp &mkp>;
+            bindings = <&mktg &mkp>;
         };
         rclk_ht: rclk_ht {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
             flavor = "balanced";
             tapping-term-ms = <2000>;
-            bindings = <&mkp &mkp>;
+            bindings = <&mktg &mkp>;
         };
     };
 
