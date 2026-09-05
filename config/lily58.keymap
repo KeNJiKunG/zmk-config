@@ -60,6 +60,21 @@
             bindings = <&esc_no_ctrl>, <&esc_on_ctrl>;
             mods = <(MOD_LCTL)>;
         };
+        /* Gaming exit: LCtrl+LShift+BkSp -> tog 0 (return to base); plain BkSp -> BSPC */
+        gamining_bksp_ctrl: gamining_bksp_ctrl {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp BSPC>, <&to 0>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+
+        gamining_bksp: gamining_bksp {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp BSPC>, <&gamining_bksp_ctrl>;
+            mods = <(MOD_LCTL)>;
+        };
+
         /* BT profile: hold 3s = clear all bonds, tap = select profile n
          * The macro wraps &bt BT_SEL, forwarding macro param1 → param2 (profile index).
          * hold-tap forwards param1 → &bt (BT_CLR_CMD), param2 → bt_sel_macro.
@@ -185,18 +200,18 @@
 //  Activated via LOWER+RAISE+1 (tog 4). Press ESC to return to DEFAULT.
 //
         gaming_layer {
-            label = "GAMING";
+            label = "Gaming";
 // |  ESC  |  1  |  2  |  3   |  4   |  5   |                   |  6   |  7    |  8    |  9   |   0   | BSPC  |
-// |  TAB  |  Q  |  W  |  E   |  R   |  T   |                   |  Y   |  U    |  I    |  O   |   P   | DEL   |
+// |  TAB  |  Q  |  W  |  E   |  R   |  T   |                   |  Y   |  U    |  I    |  O   |   P   | [{   |
 // | CTRL  |  A  |  S  |  D   |  F   |  G   |                   |  H   |  J    |  K    |  L   |   ;   | ENTER |
 // | SHIFT |  Z  |  X  |  C   |  V   |  B   |                   |  N   |  M    |  ,    |  .   |   /   | SHIFT |
-//                     | ALT  | SPACE|  TOG0 |                   |      | SPACE| ALT  |
+//                     | ALT  | LGUI |SPACE |                   | SPACE| RGUI | ALT  |
             bindings = <
-&kp ESC     &kp N1 &kp N2 &kp N3 &kp N4 &kp N5                       &kp N6 &kp N7 &kp N8 &kp N9 &kp N0 &kp BSPC
-&kp TAB     &kp Q  &kp W  &kp E  &kp R  &kp T                        &kp Y  &kp U  &kp I  &kp O  &kp P  &kp DEL
+&kp ESC     &kp N1 &kp N2 &kp N3 &kp N4 &kp N5                       &kp N6 &kp N7 &kp N8 &kp N9 &kp N0 &gamining_bksp
+&kp TAB     &kp Q  &kp W  &kp E  &kp R  &kp T                        &kp Y  &kp U  &kp I  &kp O  &kp P  &kp LBKT
 &kp LCTRL   &kp A  &kp S  &kp D  &kp F  &kp G                        &kp H  &kp J  &kp K  &kp L  &kp SEMI &kp ENTER
 &kp LSHFT   &kp Z  &kp X  &kp C  &kp V  &kp B  &trans  &trans        &kp N  &kp M  &kp COMMA &kp DOT &kp FSLH &kp RSHFT
-                          &kp LALT &kp SPACE &tog 0  &trans  &trans    &trans &kp SPACE &kp RALT
+                          &kp LALT &kp LGUI &kp SPACE  &trans  &trans    &kp SPACE &kp RGUI &kp RALT
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN>;
