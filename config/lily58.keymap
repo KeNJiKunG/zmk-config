@@ -22,30 +22,42 @@
     };
 
     behaviors {
-        /* Tab: Ctrl -> Shift+Tab ; Shift -> Ctrl+Tab ; else Tab  (left mods only) */
-        tab_on_shift: tab_on_shift {
+        /* Tab: Ctrl -> Shift+Tab ; Shift -> Ctrl+Tab ; Shift+Ctrl -> Shift+Ctrol ; else Tab  (left mods only) */
+        tab_no_ctrl: tab_no_ctrl {
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
             bindings = <&kp TAB>, <&kp LC(TAB)>;
             mods = <(MOD_LSFT)>;
         };
+        tab_on_ctrl: tab_on_ctrl {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp LS(TAB)>, <&kp LC(LS(TAB))>;
+            mods = <(MOD_LSFT)>;
+        };
         tab_swap: tab_swap {
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
-            bindings = <&tab_on_shift>, <&kp LS(TAB)>;
+            bindings = <&tab_no_ctrl>, <&tab_on_ctrl>;
             mods = <(MOD_LCTL)>;
         };
-        /* Esc: Ctrl -> Shift+Esc ; Shift -> Ctrl+Esc ; else Esc  (left mods only) */
-        esc_on_shift: esc_on_shift {
+        /* Esc: Ctrl -> Shift+Esc ; Shift -> Ctrl+Esc ; Shift+Ctrl -> Shift+Ctrl+Esc ; else Esc  (left mods only) */
+        esc_no_ctrl: esc_no_ctrl {
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
             bindings = <&kp ESC>, <&kp LC(ESC)>;
             mods = <(MOD_LSFT)>;
         };
+        esc_on_ctrl: esc_on_ctrl {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp LS(ESC)>, <&kp LC(LS(ESC))>;
+            mods = <(MOD_LSFT)>;
+        };
         esc_swap: esc_swap {
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
-            bindings = <&esc_on_shift>, <&kp LS(ESC)>;
+            bindings = <&esc_no_ctrl>, <&esc_on_ctrl>;
             mods = <(MOD_LCTL)>;
         };
         /* BT profile: hold 3s = clear all bonds, tap = select profile n
