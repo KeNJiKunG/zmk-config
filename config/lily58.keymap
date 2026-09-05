@@ -98,6 +98,21 @@
             tapping-term-ms = <200>;
             bindings = <&kp LSHFT>, <&kp CAPS>;
         };
+        /* Mouse hold-tap: quick tap = click, hold >2s = drag (held while key held) */
+        lclk_ht: lclk_ht {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <2000>;
+            bindings = <&mkp &mkp>;
+        };
+        rclk_ht: rclk_ht {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <2000>;
+            bindings = <&mkp &mkp>;
+        };
     };
 
     keymap {
@@ -162,7 +177,7 @@
 //                     | MSPD-| MSPD+|      |                   |      |      |        |
             bindings = <
 &trans &trans &trans &trans  &trans  &trans                                              &trans  &mkp MB4 &mkp MCLK &mkp MB5  &kp MINUS &kp EQUAL
-&trans &kp F1  &kp F2 &kp F3 &kp F4  &kp PSCRN                                             &msc SCRL_DOWN  &mkp LCLK &mmv MOVE_UP &mkp RCLK  &kp LBKT  &kp RBKT
+&trans &kp F1  &kp F2 &kp F3 &kp F4  &kp PSCRN                                             &msc SCRL_DOWN  &lclk_ht LCLK LCLK &mmv MOVE_UP &rclk_ht RCLK RCLK  &kp LBKT  &kp RBKT
 &trans &kp F5  &kp F6 &kp F7 &kp F8  &trans                                              &msc SCRL_UP  &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_RIGHT &kp SQT &kp SQT
 &studio_unlock  &kp F9  &kp F10 &kp F11 &kp F12 &trans &trans  &trans                               &trans  &msc SCRL_RIGHT &trans  &msc SCRL_LEFT   &trans    &trans
                           &trans &trans &trans &trans  &trans  &trans                       &trans    &trans
