@@ -160,7 +160,7 @@
 // |       |     |HOME |      | END  |  \  |                   |  '   |  1   |  2    |  3    | ENTER  |       |
 //                     |      |      |      |                  |      |  0   |   .    |
             bindings = <
-&out OUT_TOG &bt_ht 0 0 &bt_ht 0 1 &bt_ht 0 2 &bt_ht 0 3 &bt_ht 0 4                   &kp GRAVE &trans &kp KP_EQUAL &kp KP_SLASH &kp KP_ASTERISK &trans
+&out OUT_TOG &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4                   &kp GRAVE &trans &kp KP_EQUAL &kp KP_SLASH &kp KP_ASTERISK &trans
 &trans     &trans       &kp PG_DN    &kp UP       &kp PG_UP     &kp MINUS                              &kp EQUAL &kp KP_N7 &kp KP_N8 &kp KP_N9 &kp KP_MINUS &trans
 &trans     &kp RET      &kp LEFT     &kp DOWN     &kp RIGHT     &kp LBKT                               &kp RBKT  &kp KP_N4 &kp KP_N5 &kp KP_N6 &kp KP_PLUS  &trans
 &trans     &trans       &kp HOME     &trans       &kp END       &kp BSLH  &trans  &trans               &kp SQT &kp KP_N1 &kp KP_N2 &kp KP_N3 &kp KP_ENTER &trans
